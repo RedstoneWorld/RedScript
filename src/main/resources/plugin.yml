@@ -2,3 +2,4 @@ name: RedScript
 version: '${project.version}'
 main: me.kx.redscript.RedScript
 api-version: 1.17
+author: kx
