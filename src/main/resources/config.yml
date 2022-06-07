@@ -1,0 +1,4 @@
+prefix: '&7[&4Red&rScript&7] &r'
+commandExecution:
+  done: '&fScript fertig ausgeführt.'
+  starting: '&fStarte Kommandoablauf...'
