@@ -22,6 +22,7 @@ public class ParserUtil {
 		if (!pages.getOrDefault(0, "").split("\n")[0].equals("[RedScript]")) {
 			throw new IllegalArgumentException("Book is not a RedScript book");
 		}
+		pages.set(0, pages.get(0).replace("[RedScript]", ""));
 		for (String page : pages) {
 			commands.addAll(Arrays.stream(page.split("\n")).map(String::trim).collect(Collectors.toList()));
 		}
