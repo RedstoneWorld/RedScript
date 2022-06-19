@@ -15,10 +15,10 @@ public class BulkCommandExecutor {
 
 	private static void performInternalCommand(Player player, String strippedCommand) throws InterruptedException {
 		String[] parts = strippedCommand.split("=");
-		String command = parts[0];
+		String command = parts[0].trim();
 		String value = "";
 		if (parts.length == 2) {
-			value = parts[1];
+			value = parts[1].trim();
 		}
 		if (command.equals("wait")) {
 			try {
