@@ -31,10 +31,6 @@ public class BookListener implements Listener {
 			return;
 		}
 		e.setCancelled(true);
-		try {
-			BulkCommandExecutor.executeCommandsAsync(e.getPlayer(), commands);
-		} catch (InterruptedException ex) {
-			ex.printStackTrace();
-		}
+		BulkCommandExecutor.executeCommandsAsync(e.getPlayer(), commands);
 	}
 }
