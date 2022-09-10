@@ -16,7 +16,7 @@ public class BookListener implements Listener {
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		if (!e.getPlayer().isSneaking()) {
 			return;
-		} else if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) {
+		} else if (e.getAction() != Action.LEFT_CLICK_AIR && e.getAction() != Action.LEFT_CLICK_BLOCK) {
 			return;
 		} else if (e.getItem() == null) {
 			return;
