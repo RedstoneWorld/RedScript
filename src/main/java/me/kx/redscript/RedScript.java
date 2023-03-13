@@ -8,19 +8,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 
 public final class RedScript extends JavaPlugin {
-
-	// region INSTANCING
-	private static RedScript INSTANCE = null;
+	
+	private static RedScript instance = null;
 
 	public static RedScript getInstance() {
-		return INSTANCE;
+		return instance;
 	}
 
 	public RedScript() {
-		INSTANCE = this;
+		instance = this;
 	}
-	// endregion
-
+	
 	@Override
 	public void onEnable() {
 		Bukkit.getPluginManager().registerEvents(new BookListener(), this);
@@ -30,6 +28,6 @@ public final class RedScript extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		// Plugin shutdown logic
+		
 	}
 }

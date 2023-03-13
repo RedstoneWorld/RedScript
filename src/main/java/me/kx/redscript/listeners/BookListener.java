@@ -39,7 +39,6 @@ public class BookListener implements Listener {
 			}
 
 			BulkCommandExecutor.executeCommandsAsync(e.getPlayer(), commands);
-
 			e.setCancelled(true);
 		}
 		
