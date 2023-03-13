@@ -11,7 +11,7 @@ public class SafeList<A> extends ArrayList<A> {
 	}
 
 	public A getOrDefault(int index, A defaultValue) {
-		if(index < 0 || index >= size()) {
+		if (index < 0 || index >= size()) {
 			return defaultValue;
 		}
 		return get(index);

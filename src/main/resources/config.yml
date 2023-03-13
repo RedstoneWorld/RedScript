@@ -1,5 +1,5 @@
-prefix: '&7[&4Red&rScript&7] &r'
+prefix: '&8[&4Red&fScript&8]&f: '
 commandExecution:
-  done: '&fScript fertig ausgeführt.'
-  starting: '&fStarte Kommandoablauf...'
+  done: 'Script fertig ausgeführt.'
+  starting: 'Starte Kommandoablauf...'
   timeout: '&cTimeout! Kommandoablauf abgebrochen.'

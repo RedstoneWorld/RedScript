@@ -49,7 +49,7 @@ public class BulkCommandExecutor {
 		long startTime = System.currentTimeMillis();
 		player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("commandExecution.starting"));
 		for (String command : commands) {
-			if(System.currentTimeMillis() - startTime > 30000) {
+			if (System.currentTimeMillis() - startTime > 30000) {
 				player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("commandExecution.timeout"));
 				break;
 			}

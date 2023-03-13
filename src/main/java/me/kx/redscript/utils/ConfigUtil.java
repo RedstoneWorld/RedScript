@@ -9,7 +9,7 @@ public class ConfigUtil {
 	private static YamlConfiguration config;
 
 	public static void Init(File configFile) {
-		if(!configFile.exists())
+		if (!configFile.exists())
 			throw new IllegalArgumentException("Config file does not exist");
 		config = YamlConfiguration.loadConfiguration(configFile);
 	}
@@ -20,7 +20,7 @@ public class ConfigUtil {
 
 	public static String getMessage(String path) {
 		String message = config.getString(path);
-		if(message == null || message.isEmpty())
+		if (message == null || message.isEmpty())
 			return "§4§l[RedScript] §c§lError: Message §4§l" + path + "§c§l is not set";
 		return ChatColor.translateAlternateColorCodes('&', message);
 	}
