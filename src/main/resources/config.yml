@@ -1,5 +1,5 @@
 prefix: '&8[&4Red&fScript&8]&f: '
 commandExecution:
-  done: 'Script fertig ausgeführt.'
-  starting: 'Starte Kommandoablauf...'
+  done: '&aScript fertig ausgeführt.'
+  starting: '&8Starte Kommandoablauf...'
   timeout: '&cTimeout! Kommandoablauf abgebrochen.'
