@@ -50,10 +50,15 @@ public class VariableStorage {
 	public String fillVariables(UUID player, String command) {
 		Pattern pattern = Pattern.compile("\\$.+?\\$", Pattern.MULTILINE);
 		Matcher matcher = pattern.matcher(command);
+		
 		while (matcher.find()) {
-			String variable = matcher.group();
-			String value = getVariable(player, variable.substring(1, variable.length() - 1)).asString();
-			command = command.replace(variable, value);
+			String input = matcher.group();
+			ScriptVariable variable = getVariable(player, input.substring(1, input.length() - 1));
+			
+			if (variable == null) continue;
+			String value = variable.asString();
+			
+			command = command.replace(input, value);
 		}
 		return command;
 	}
