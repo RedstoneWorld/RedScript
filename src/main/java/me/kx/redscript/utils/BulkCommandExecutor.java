@@ -6,12 +6,41 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.List;
 
 public class BulkCommandExecutor {
 	private static final VariableStorage variableStorage = new VariableStorage();
+
+	public static void executeCommandsAsync(Player player, List<String> commands) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				try {
+					executeCommands(player, commands);
+				} catch (InterruptedException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}.runTaskAsynchronously(RedScript.getInstance());
+	}
+
+	public static void executeCommands(Player player, List<String> commands) throws InterruptedException {
+		long startTime = System.currentTimeMillis();
+		player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("commandExecution.starting"));
+		
+		for (String command : commands) {
+			if (System.currentTimeMillis() - startTime > 30000) {
+				player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("commandExecution.timeout"));
+				break;
+			}
+			String filledCommand = variableStorage.fillVariables(player.getUniqueId(), command);
+			performCommand(player, filledCommand);
+		}
+		
+		variableStorage.clearVariables(player.getUniqueId());
+		player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("commandExecution.done"));
+	}
 
 	private static void performInternalCommand(Player player, String strippedCommand) throws InterruptedException {
 		String[] parts = strippedCommand.split("=");
@@ -40,36 +69,8 @@ public class BulkCommandExecutor {
 			Bukkit.getScheduler().callSyncMethod(RedScript.getInstance(), () -> Bukkit.dispatchCommand(player, command.substring(1)));
 		} else if (command.startsWith("[") && command.endsWith("]")) {
 			performInternalCommand(player, command.substring(1, command.length() - 1));
-		} else if (command.startsWith("%")) {
-			player.sendMessage(ConfigUtil.getPrefix() + ChatColor.translateAlternateColorCodes('&', command.substring(1)));
+		} else if (command.startsWith(">>")) {
+			player.sendMessage(ConfigUtil.getPrefix() + ChatColor.translateAlternateColorCodes('&', command.substring(2)));
 		}
-	}
-
-	public static void executeCommands(Player player, List<String> commands) throws InterruptedException {
-		long startTime = System.currentTimeMillis();
-		player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("commandExecution.starting"));
-		for (String command : commands) {
-			if (System.currentTimeMillis() - startTime > 30000) {
-				player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("commandExecution.timeout"));
-				break;
-			}
-			String filledCommand = variableStorage.fillVariables(player.getUniqueId(), command);
-			performCommand(player, filledCommand);
-		}
-		variableStorage.clearVariables(player.getUniqueId());
-		player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("commandExecution.done"));
-	}
-
-	public static BukkitTask executeCommandsAsync(Player player, List<String> commands) {
-		return new BukkitRunnable() {
-			@Override
-			public void run() {
-				try {
-					executeCommands(player, commands);
-				} catch (InterruptedException e) {
-					throw new RuntimeException(e);
-				}
-			}
-		}.runTaskAsynchronously(RedScript.getInstance());
 	}
 }

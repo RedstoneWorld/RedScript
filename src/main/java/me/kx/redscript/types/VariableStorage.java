@@ -48,6 +48,7 @@ public class VariableStorage {
 	}
 
 	public String fillVariables(UUID player, String command) {
+		// Matching variable definitions forwarding the form: "[<variable>=<value>]"
 		Pattern pattern = Pattern.compile("\\$.+?\\$", Pattern.MULTILINE);
 		Matcher matcher = pattern.matcher(command);
 		
